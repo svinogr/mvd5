@@ -1,6 +1,6 @@
 package app.entity.users;
 
-import app.entity.users.roles.Role;
+import app.entity.users.roles.EnumRole;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,8 +15,9 @@ public class User{
 
     @Column(name = "password")
     private String password;
-    @Transient
-    private List<Role> roleList;
+
+    @Column(name = "role")
+    private String role;
 
     public User() {
     }
@@ -44,11 +45,11 @@ public class User{
         this.password = password;
     }
 
-    public List<Role> getRoleList() {
-        return roleList;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoleList(List<Role> roleList) {
-        this.roleList = roleList;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

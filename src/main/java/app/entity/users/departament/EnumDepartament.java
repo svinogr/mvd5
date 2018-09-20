@@ -1,6 +1,6 @@
 package app.entity.users.departament;
 
-public enum Departament {
+public enum EnumDepartament {
     DGM{
         @Override
         public String getFullName() {
