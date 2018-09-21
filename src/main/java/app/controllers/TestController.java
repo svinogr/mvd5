@@ -1,5 +1,8 @@
 package app.controllers;
 
+import app.dao.UserDao;
+import app.entity.users.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,9 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/api", method = RequestMethod.GET)
 public class TestController {
 
-@RequestMapping(value = "/info/")
-    public @ResponseBody String getVersionProgramm(HttpServletResponse response){
+    @Autowired
+    UserDao userDao;
+
+    @RequestMapping(value = "/info/")
+    public @ResponseBody
+    String getVersionProgramm(HttpServletResponse response) {
         response.setStatus(200);
-        return "version is 1.0";
+
+        User user = userDao.getByLogin("admin");
+        System.out.println(user.getId() + " " + user.getPassword());
+
+        return "version is 1.0" + user.getLogin();
     }
 }
