@@ -11,6 +11,7 @@ import org.springframework.dao.annotation.PersistenceExceptionTranslationPostPro
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManager;
@@ -35,6 +36,17 @@ public class HibernateConfig {
 //       return entityManagerFactory;
 //   }
 
+
+    // бин для спринг секюрити
+    @Bean
+    public UserDetailsService userDetailsService() {
+        CustomUserDetailService jdbcImpl = new CustomUserDetailService();
+        jdbcImpl.setDataSource(dataSource());
+        jdbcImpl.setUsersByUsernameQuery(environment.getRequiredProperty("usersByQuery"));
+        jdbcImpl.setAuthoritiesByUsernameQuery(environment.getRequiredProperty("rolesByQuery"));
+        return jdbcImpl;
+    }
+
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -44,6 +56,8 @@ public class HibernateConfig {
         return sessionFactory;
     }
 
+
+    // для внесения пароля в базу данных ВНИМАТЕЛЬНО выбираем енкриптор, иначе очень долго будем втыкать почему не идент аутентификация
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

@@ -27,4 +27,27 @@ public class TestController {
 
         return "version is 1.0" + user.getLogin();
     }
+
+    @RequestMapping(value = "/admin/")
+    public @ResponseBody
+    String getVersionProgramm2(HttpServletResponse response) {
+       // response.setStatus(200);
+
+        User user = userDao.getByLogin("admin");
+        System.out.println(user.getId() + " " + user.getPassword());
+
+        return "version is 1.0" + user.getLogin();
+    }
+
+
+    @RequestMapping(value = "/admin/2")
+    public @ResponseBody
+    String getVersionProgramm3(HttpServletResponse response) {
+        // response.setStatus(200);
+
+        User user = userDao.getByLogin("admin");
+        System.out.println(user.getId() + " " + user.getPassword());
+
+        return "version is 1.0" + 3;
+    }
 }
