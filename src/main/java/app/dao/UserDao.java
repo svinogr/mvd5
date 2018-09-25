@@ -2,6 +2,6 @@ package app.dao;
 
 import app.entity.users.User;
 
-public interface UserDao<T> extends BasicDao<T> {
+public interface UserDao extends BasicDao<User> {
     User getByLogin(String login);
 }

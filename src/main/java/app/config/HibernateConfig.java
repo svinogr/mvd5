@@ -12,6 +12,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManager;
@@ -38,14 +39,23 @@ public class HibernateConfig {
 
 
     // бин для спринг секюрити
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        CustomUserDetailService jdbcImpl = new CustomUserDetailService();
+//        jdbcImpl.setDataSource(dataSource());
+//        jdbcImpl.setUsersByUsernameQuery(environment.getRequiredProperty("usersByQuery"));
+//        jdbcImpl.setAuthoritiesByUsernameQuery(environment.getRequiredProperty("rolesByQuery"));
+//        return jdbcImpl;
+//    }
     @Bean
     public UserDetailsService userDetailsService() {
-        CustomUserDetailService jdbcImpl = new CustomUserDetailService();
+        JdbcDaoImpl jdbcImpl = new JdbcDaoImpl();
         jdbcImpl.setDataSource(dataSource());
         jdbcImpl.setUsersByUsernameQuery(environment.getRequiredProperty("usersByQuery"));
         jdbcImpl.setAuthoritiesByUsernameQuery(environment.getRequiredProperty("rolesByQuery"));
         return jdbcImpl;
     }
+
 
     @Bean
     public LocalSessionFactoryBean sessionFactory() {

@@ -59,8 +59,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/administration/**").access("hasRole('ADMIN')")
                 // .antMatchers("/api/**").access("hasRole('USER')")
                 .antMatchers("/api/admin/**").access("hasRole('ADMIN')")
-                .and().httpBasic().authenticationEntryPoint(basicAuthEntryPoint())
-                .and().logout().logoutUrl("/logout").invalidateHttpSession(true).deleteCookies();
+
+                .and().httpBasic().authenticationEntryPoint(basicAuthEntryPoint()).and().csrf().disable()
+                .logout().logoutUrl("/logout").invalidateHttpSession(true).deleteCookies();
 
         //  .and().csrf().disable()
                // .sessionManagement().maximumSessions(100).sessionRegistry(sessionRegistry()).and()

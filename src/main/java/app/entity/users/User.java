@@ -1,32 +1,34 @@
 package app.entity.users;
 
-import app.entity.users.roles.EnumRole;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 @Entity(name = "user")
-public class User implements UserDetails{
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotNull
+    @Length(min = 1, max = 20, message = "длинна должна быть от 1 до 20")
     @Column(name = "login")
     private String login;
 
+    @NotNull
+    @Length(min = 1, max = 20, message = "длинна должна быть от 1 до 20")
     @Column(name = "password")
     private String password;
 
     @Column(name = "role")
     private String role;
 
-    @Transient
-    private UserDetails userDetails;
-
     public User() {
     }
+
     public long getId() {
         return id;
     }
@@ -43,38 +45,8 @@ public class User implements UserDetails{
         this.login = login;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return userDetails.getAuthorities();
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return userDetails.getUsername();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return userDetails.isAccountNonExpired();
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return userDetails.isAccountNonLocked();
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return userDetails.isCredentialsNonExpired();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return userDetails.isEnabled();
     }
 
     public void setPassword(String password) {
@@ -89,11 +61,13 @@ public class User implements UserDetails{
         this.role = role;
     }
 
-    public UserDetails getUserDetails() {
-        return userDetails;
-    }
-
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

@@ -1,24 +1,19 @@
 package app.dao.daoimpl;
 
-import app.dao.BasicDao;
 import app.dao.UserDao;
 import app.entity.users.User;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
+import app.entity.users.roles.EnumRole;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Component
-public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao<User> {
-
-
+public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao {
 
     public UserDaoImpl() {
         super(User.class);
@@ -35,8 +30,19 @@ public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao<User> {
         List<User> users = entityManager.createQuery(criteriaQuery).getResultList();
 
         return users.get(0);
-
-
-
     }
+
+//    @Override
+//    @Transactional
+//    public User createUser(User user) {
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//        entityManager.getTransaction().begin();
+//        entityManager.persist(user);
+//        entityManager.getTransaction().commit();
+//
+//        return user;
+//    }
+
+
+
 }
