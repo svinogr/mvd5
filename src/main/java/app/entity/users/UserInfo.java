@@ -1,6 +1,6 @@
 package app.entity.users;
 
-import app.entity.users.departament.EnumDepartament;
+import app.entity.departament.EnumDepartament;
 
 public class UserInfo {
     private String name;

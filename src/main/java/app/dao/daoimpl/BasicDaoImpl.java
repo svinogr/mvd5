@@ -3,13 +3,14 @@ package app.dao.daoimpl;
 import app.dao.BasicDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.OptimisticLockException;
 
-@Component
+@Repository
 public class BasicDaoImpl<T> implements BasicDao<T> {
 
 

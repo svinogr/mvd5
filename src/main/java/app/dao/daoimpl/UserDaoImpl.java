@@ -2,9 +2,7 @@ package app.dao.daoimpl;
 
 import app.dao.UserDao;
 import app.entity.users.User;
-import app.entity.users.roles.EnumRole;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -12,7 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-@Component
+@Repository
 public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao {
 
     public UserDaoImpl() {

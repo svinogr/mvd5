@@ -19,7 +19,7 @@ public class User {
     private String login;
 
     @NotNull
-    @Length(min = 1, max = 20, message = "длинна должна быть от 1 до 20")
+    @Length(min = 1, max = 200, message = "длинна должна быть от 1 до 200")
     @Column(name = "password")
     private String password;
 

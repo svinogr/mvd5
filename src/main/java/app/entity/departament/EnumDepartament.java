@@ -1,4 +1,4 @@
-package app.entity.users.departament;
+package app.entity.departament;
 
 public enum EnumDepartament {
     DGM{
