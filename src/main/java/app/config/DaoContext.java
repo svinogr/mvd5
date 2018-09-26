@@ -1,8 +1,10 @@
 package app.config;
 
 import app.dao.BasicDao;
+import app.dao.CarDao;
 import app.dao.UserDao;
 import app.dao.daoimpl.BasicDaoImpl;
+import app.dao.daoimpl.CarDaoImpl;
 import app.dao.daoimpl.UserDaoImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,5 +22,10 @@ public class DaoContext {
     @Bean
     UserDao userDao(){
         return new UserDaoImpl();
+    }
+
+    @Bean
+    CarDao carDao() {
+        return new CarDaoImpl();
     }
 }

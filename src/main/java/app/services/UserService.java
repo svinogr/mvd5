@@ -3,6 +3,7 @@ package app.services;
 import app.entity.users.User;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 
 
 public interface UserService {
@@ -11,5 +12,7 @@ public interface UserService {
     User createAdmin(User user);
     boolean update(User user);
     boolean delete(User user);
+
+    List<User> getAllUsers();
 
 }

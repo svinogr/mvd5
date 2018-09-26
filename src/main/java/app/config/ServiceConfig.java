@@ -1,7 +1,9 @@
 package app.config;
 
+import app.services.CarService;
 import app.services.UserService;
 import app.services.ValidService;
+import app.services.serviceImpl.CarServiceImpl;
 import app.services.serviceImpl.UserServiceImpl;
 import app.services.serviceImpl.ValidUserImpl;
 import org.springframework.context.annotation.Bean;
@@ -21,4 +23,8 @@ public class ServiceConfig {
     public UserService userService(){return new UserServiceImpl();
     }
 
+    @Bean
+    public CarService carService() {
+        return new CarServiceImpl();
+    }
 }

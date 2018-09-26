@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -53,10 +55,18 @@ public class UserServiceImpl implements UserService {
         return delete;
     }
 
+    @Override
+    public List<User> getAllUsers() {
+        List<User> users = userDao.getAll();
+        for (User user : users) {
+            securityFields(user);
+        }
+        return users;
+    }
+
     private void securityFields(User user){
         user.setPassword("");
         user.setRole("");
         user.setRole("");
-
     }
 }

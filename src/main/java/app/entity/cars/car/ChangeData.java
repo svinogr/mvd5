@@ -1,4 +1,4 @@
-package app.entity.cars;
+package app.entity.cars.car;
 
 public class ChangeData {
 }

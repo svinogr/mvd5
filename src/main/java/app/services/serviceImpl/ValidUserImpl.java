@@ -1,5 +1,6 @@
 package app.services.serviceImpl;
 
+import app.entity.cars.car.Car;
 import app.entity.users.User;
 import app.services.ValidService;
 import org.springframework.stereotype.Component;
@@ -28,5 +29,10 @@ public class ValidUserImpl implements ValidService {
 
         return user;
 
+    }
+
+    @Override
+    public Car validCar(Car car, BindingResult bindingResult) {
+        return null;
     }
 }

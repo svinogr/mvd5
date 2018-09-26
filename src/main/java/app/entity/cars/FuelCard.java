@@ -1,4 +1,4 @@
 package app.entity.cars;
 
-public class Photo {
+public class FuelCard {
 }

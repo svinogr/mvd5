@@ -1,6 +1,7 @@
 package app.dao.daoimpl;
 
 import app.dao.BasicDao;
+import app.entity.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.OptimisticLockException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Repository
 public class BasicDaoImpl<T> implements BasicDao<T> {
@@ -28,10 +35,18 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
     public BasicDaoImpl() {
     }
 
-
     @Override
     public T getById(long id) {
-        return entityManagerFactory.createEntityManager().find(type, id);
+        T object = null;
+        try {
+            object = entityManagerFactory.createEntityManager().find(type, id);
+
+        } catch (OptimisticLockException e) {
+            e.printStackTrace();
+        } finally {
+            return object;
+        }
+
     }
 
     @Transactional
@@ -79,6 +94,31 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
         finally {
             return flag;
         }
+    }
+
+    @Transactional
+    @Override
+    public List<T> getAll() {
+        System.out.println(4);
+        List<T> list = Collections.emptyList();
+        try {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
+            Root<T> root = criteriaQuery.from(type);
+            criteriaQuery.select(root);
+            // criteriaQuery.where(criteriaBuilder.equal(root.get("login"),login));
+            List<T> users = entityManager.createQuery(criteriaQuery).getResultList();
+            System.out.println(users.size());
+
+            list = users;
+        } catch (OptimisticLockException e) {
+            e.printStackTrace();
+
+        } finally {
+            return list;
+        }
+
     }
 
 
