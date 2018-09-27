@@ -52,12 +52,19 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
     @Transactional
     @Override
     public T create(T object) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(object);
-        entityManager.getTransaction().commit();
+        T created = null;
+        try {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.persist(object);
+            entityManager.getTransaction().commit();
+            created = object;
+        } catch (OptimisticLockException e) {
+            e.printStackTrace();
+        } finally {
+            return created;
+        }
 
-        return object;
     }
 
     @Transactional

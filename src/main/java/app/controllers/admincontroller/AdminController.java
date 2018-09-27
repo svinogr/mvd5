@@ -63,9 +63,13 @@ public class AdminController {
         if (user.getRole().equals("user")) {
             createdUser = userService.createUser(user);
         }
+        if (createdUser == null) {
+            response.setStatus(404);
+        } else {
+            response.setStatus(201);
+            response.setHeader("Location", "/api/admin/user/" + createdUser.getId());
+        }
 
-        response.setStatus(201);
-        response.setHeader("Location", "/api/admin/user/" + createdUser.getId());
         return createdUser;
     }
 
