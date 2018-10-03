@@ -10,5 +10,8 @@
         <module name="mvd5" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mvd5" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
